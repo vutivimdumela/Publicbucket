@@ -1,20 +1,10 @@
 Resources:
-  MyBucket:
-    Type: AWS::S3::Bucket
+  NewKeyPair:
+    Type: 'AWS::EC2::KeyPair'
     Properties:
-      BucketName: my-bucket-name
-  MyBucketPolicy:
-    Type: AWS::S3::BucketPolicy
+      KeyName: MyKeyPair
+  Ec2Instance:
+    Type: 'AWS::EC2::Instance'
     Properties:
-      Bucket: !Ref MyBucket
-      PolicyDocument:
-        Version: 2012-10-17
-        Statement:
-          - Sid: DenyPublicAccess
-            Effect: Deny
-            Principal: '*'
-            Action: s3:GetObject
-            Resource: !Sub arn:aws:s3:::${MyBucket}/*
-            Condition:
-              StringNotEquals:
-                aws:PrincipalOrgID: "YOUR_ORGANIZATION_ID"
+      ImageId: ami-02b92c281a4d3dc79
+      KeyName: !Ref NewKeyPair
