@@ -1,4 +1,3 @@
-# Publicbucket
 Resources:
   MyBucket:
     Type: AWS::S3::Bucket
