@@ -2,7 +2,7 @@ Resources:
   MyBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: Bucket-001
+      BucketName: my-bucket-name
   MyBucketPolicy:
     Type: AWS::S3::BucketPolicy
     Properties:
@@ -10,8 +10,11 @@ Resources:
       PolicyDocument:
         Version: 2012-10-17
         Statement:
-          - Sid: PublicReadGetObject
-            Effect: Allow
+          - Sid: DenyPublicAccess
+            Effect: Deny
             Principal: '*'
             Action: s3:GetObject
             Resource: !Sub arn:aws:s3:::${MyBucket}/*
+            Condition:
+              StringNotEquals:
+                aws:PrincipalOrgID: "YOUR_ORGANIZATION_ID"
